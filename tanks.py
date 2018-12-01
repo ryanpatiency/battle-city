@@ -51,7 +51,7 @@ class Timer(object):
 class Castle():
 	""" Player's castle/fortress """
 
-	(STATE_STANDING, STATE_DESTROYED, STATE_EXPLODING) = range(3)
+	(STATE_STANDING, STATE_DESTROYED, STATE_EXPLODING) = list(range(3))
 
 	def __init__(self):
 
@@ -107,7 +107,7 @@ class Bonus():
 	"""
 
 	# bonus types
-	(BONUS_GRENADE, BONUS_HELMET, BONUS_SHOVEL, BONUS_STAR, BONUS_TANK, BONUS_TIMER) = range(6)
+	(BONUS_GRENADE, BONUS_HELMET, BONUS_SHOVEL, BONUS_STAR, BONUS_TANK, BONUS_TIMER) = list(range(6))
 
 	def __init__(self, level):
 
@@ -148,12 +148,12 @@ class Bonus():
 
 class Bullet():
 	# direction constants
-	(DIR_UP, DIR_RIGHT, DIR_DOWN, DIR_LEFT) = range(4)
+	(DIR_UP, DIR_RIGHT, DIR_DOWN, DIR_LEFT) = list(range(4))
 
 	# bullet's stated
-	(STATE_REMOVED, STATE_ACTIVE, STATE_EXPLODING) = range(3)
+	(STATE_REMOVED, STATE_ACTIVE, STATE_EXPLODING) = list(range(3))
 
-	(OWNER_PLAYER, OWNER_ENEMY) = range(2)
+	(OWNER_PLAYER, OWNER_ENEMY) = list(range(2))
 
 	def __init__(self, level, position, direction, damage = 100, speed = 5):
 
@@ -359,7 +359,7 @@ class Explosion():
 class Level():
 
 	# tile constants
-	(TILE_EMPTY, TILE_BRICK, TILE_STEEL, TILE_WATER, TILE_GRASS, TILE_FROZE) = range(6)
+	(TILE_EMPTY, TILE_BRICK, TILE_STEEL, TILE_WATER, TILE_GRASS, TILE_FROZE) = list(range(6))
 
 	# tile width/height in px
 	TILE_SIZE = 16
@@ -536,13 +536,13 @@ class Level():
 class Tank():
 
 	# possible directions
-	(DIR_UP, DIR_RIGHT, DIR_DOWN, DIR_LEFT) = range(4)
+	(DIR_UP, DIR_RIGHT, DIR_DOWN, DIR_LEFT) = list(range(4))
 
 	# states
-	(STATE_SPAWNING, STATE_DEAD, STATE_ALIVE, STATE_EXPLODING) = range(4)
+	(STATE_SPAWNING, STATE_DEAD, STATE_ALIVE, STATE_EXPLODING) = list(range(4))
 
 	# sides
-	(SIDE_PLAYER, SIDE_ENEMY) = range(2)
+	(SIDE_PLAYER, SIDE_ENEMY) = list(range(2))
 
 	def __init__(self, level, side, position = None, direction = None, filename = None):
 
@@ -805,7 +805,7 @@ class Tank():
 
 class Enemy(Tank):
 
-	(TYPE_BASIC, TYPE_FAST, TYPE_POWER, TYPE_ARMOR) = range(4)
+	(TYPE_BASIC, TYPE_FAST, TYPE_POWER, TYPE_ARMOR) = list(range(4))
 
 	def __init__(self, level, type, position = None, direction = None, filename = None):
 
@@ -1087,7 +1087,7 @@ class Enemy(Tank):
 		# if we can go anywhere else, turn around
 		if new_direction == None:
 			new_direction = opposite_direction
-			print "nav izejas. griezhamies"
+			print("nav izejas. griezhamies")
 
 		# fix tanks position
 		if fix_direction and new_direction == self.direction:
@@ -1241,7 +1241,7 @@ class Player(Tank):
 class Game():
 
 	# direction constants
-	(DIR_UP, DIR_RIGHT, DIR_DOWN, DIR_LEFT) = range(4)
+	(DIR_UP, DIR_RIGHT, DIR_DOWN, DIR_LEFT) = list(range(4))
 
 	TILE_SIZE = 16
 
@@ -1403,7 +1403,7 @@ class Game():
 
 		global play_sounds, sounds
 
-		print "Game Over"
+		print("Game Over")
 		if play_sounds:
 			for sound in sounds:
 				sounds[sound].stop()
@@ -1632,10 +1632,10 @@ class Game():
 			self.clock.tick(interval)
 
 		# total tanks
-		tanks = sum([i for i in players[0].trophies.values()]) - players[0].trophies["bonus"]
+		tanks = sum([i for i in list(players[0].trophies.values())]) - players[0].trophies["bonus"]
 		screen.blit(self.font.render(str(tanks).rjust(2), False, white), [170, 335])
 		if self.nr_of_players == 2:
-			tanks = sum([i for i in players[1].trophies.values()]) - players[1].trophies["bonus"]
+			tanks = sum([i for i in list(players[1].trophies.values())]) - players[1].trophies["bonus"]
 			screen.blit(self.font.render(str(tanks).rjust(2), False, white), [277, 335])
 
 		pygame.display.flip()
@@ -1883,7 +1883,7 @@ class Game():
 		if hiscore > 19999 and hiscore < 1000000:
 			return hiscore
 		else:
-			print "cheater =["
+			print("cheater =[")
 			return 20000
 
 	def saveHiscore(self, hiscore):
@@ -1893,7 +1893,7 @@ class Game():
 		try:
 			f = open(".hiscore", "w")
 		except:
-			print "Can't save hi-score"
+			print("Can't save hi-score")
 			return False
 		f.write(str(hiscore))
 		f.close()
@@ -1913,7 +1913,7 @@ class Game():
 		self.active = False
 		gtimer.add(3000, lambda :self.showScores(), 1)
 
-		print "Stage "+str(self.stage)+" completed"
+		print("Stage "+str(self.stage)+" completed")
 
 	def nextLevel(self):
 		""" Start next level """
